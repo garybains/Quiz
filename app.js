@@ -32,12 +32,10 @@ app.use(cookieParser());
 var staticDirectory = process.env.PORT ? '/client/build' : '/client/src';
 app.use(express.static(path.join(__dirname, '/client/build')));
 
+app.use('/', index);
 
-app.use('/', function(req, res, next) {
-  res.set('Content-Type', 'application/json');
-  res.send({
-	"users": ["Will", "Laura2"]
-});
+app.use('/g', function(req, res, next) {
+  res.json({"respond with a resource":  "sdd", "proxy": "http://localhost:3001/",});
 });
 app.use('/users', users);
 
