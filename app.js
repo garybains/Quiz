@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var teachers = require('./routes/teachers');
 
 var app = express();
 
@@ -32,14 +32,9 @@ app.use(cookieParser());
 var staticDirectory = process.env.PORT ? '/client/build' : '/client/src';
 app.use(express.static(path.join(__dirname, '/client/build')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
+app.get('/', index);
 
-app.use('/g', function(req, res, next) {
-  res.json({"respond with a resource":  "sdd", "proxy": "http://localhost:3001/",});
-});
-app.use('/users', users);
+app.use('/teachers', teachers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
